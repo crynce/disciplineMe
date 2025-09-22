@@ -1,3 +1,8 @@
+.app-container {
+  width: 100vw;
+  height: 100vh;
+}
+
 .login-register-form-container {
   height: clamp(600px, 75%, 900px);
   width: clamp(300px, 35vw, 500px);
@@ -6,24 +11,35 @@
   padding: clamp(10px, 8vw, 32px);
   border-radius: 10px;
   color: #212121;
+
+  & :hover {
+    cursor: pointer;
+  }
 }
 .login-register-form-container .form-selection {
   width: 100%;
-  height: 50px;
+  height: 75px;
   color: #101213;
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid black;
+  line-height: 100%;
+
   & > span {
+    line-height: 3;
     width: 50%;
     display: inline-block;
     border-radius: 5px;
     height: 100%;
     font-size: large;
+    transition: background-color 0.2s ease;
     &:hover {
-      background-color: rgb(139, 155, 176);
+      background-color: rgba(139, 155, 176, 0.221);
     }
   }
+}
+span .form-selected {
+  border-bottom: 2px solid #2609cb5f;
 }
 /* .login-form-container {
 } */
@@ -58,4 +74,12 @@
 .login-form-input-labels {
   /* height: 30px; */
   margin-top: 30px;
+}
+.login-form-input-fields:last-of-type {
+  margin-top: 10px;
+  display: inline-block;
+}
+.login-form-input-labels:last-of-type {
+  margin-top: 10px;
+  display: inline-block;
 }

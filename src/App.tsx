@@ -9,8 +9,9 @@ function App() {
 
   return (
     <>
-      <div>Discipline.me</div>
-      <LoginForm />
+      <div className="app-container">
+        <LoginForm />
+      </div>
     </>
   );
 }
