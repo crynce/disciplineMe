@@ -11,6 +11,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 /* Make images easier to work with */
@@ -38,8 +39,14 @@ select {
   font-style: normal;
 }
 
+body {
+  margin-top: 10px;
+  min-height: 700px;
+  min-width: max-content;
+}
 #root {
-  height: 100vh;
+  min-height: 700px;
   /* width: 100vw; */
   font-family: "Notoserifottoman";
+  color: var(--font-color-black);
 }
