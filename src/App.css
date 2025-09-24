@@ -31,9 +31,9 @@
   color: #212121;
   height: 80%;
   /* margin-top: 20px; */
-  & :hover {
+  /* & :hover {
     cursor: pointer;
-  }
+  } */
 }
 .login-register-form-container .form-selection {
   width: 100%;
