@@ -1,12 +1,11 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 
-import type { formSelectType, loginFormDataType } from "../types/loginForm";
+import type { loginFormDataType } from "../types/loginForm";
 
-export const InitialForm = ({ initialFormData }) => {
+export const InitialForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<loginFormDataType>();
 

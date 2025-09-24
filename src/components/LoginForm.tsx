@@ -1,13 +1,5 @@
-import {
-  useDeferredValue,
-  useEffect,
-  useState,
-  useTransition,
-  memo,
-} from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { InitialForm } from "./InitialForm";
-import { inititalLoginFormData } from "../const/const";
 import type { formSelectType } from "../types/loginForm";
 
 export default function LoginForm() {
@@ -38,7 +30,7 @@ export default function LoginForm() {
         </span>
       </div>
       <div className="login-form-container">
-        <InitialForm initialFormData={inititalLoginFormData} />
+        <InitialForm />
       </div>
     </div>
   );
