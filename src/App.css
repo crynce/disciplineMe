@@ -168,3 +168,8 @@
 .invalid {
   color: red;
 }
+
+.errors-flex {
+  display: flex;
+  gap: 1em;
+}

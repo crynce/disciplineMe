@@ -8,20 +8,27 @@ export const InitialForm = () => {
     value: "black-tooltip",
     allErrorsCleared: false,
   });
-  const {
-    register,
-    handleSubmit,
-    getFieldState,
-    formState: { errors },
-  } = useForm<loginFormDataType>({
-    mode: "onTouched",
-  });
+  const { register, handleSubmit, getFieldState, formState } =
+    useForm<loginFormDataType>({
+      mode: "all",
+    });
   // const { invalid, isDirty, isTouched, error } = getFieldState(
   //   "email",
   //   formState
   // );
+  const {
+    invalid: emailInvalid,
+    isTouched: emailTouched,
+    error: emailError,
+    isDirty: emailDirty,
+  } = getFieldState("email", formState);
+  const {
+    invalid: passInvalid,
+    isTouched: passTouched,
+    error: passError,
+  } = getFieldState("password", formState);
   useEffect(() => {
-    console.log(errors, "errors", getFieldState("email").invalid);
+    console.log(emailError, "errors");
   });
 
   const onSubmit: SubmitHandler<loginFormDataType> = (
@@ -48,31 +55,26 @@ export const InitialForm = () => {
           })}
           className="login-form-input-fields"
         />
-        {getFieldState("email").isTouched && getFieldState("email").invalid && (
+        {!emailTouched && emailInvalid && (
+          <span className="error-basic">Enter your email address</span>
+        )}
+        {emailTouched && emailInvalid && (
           <span
             className={`error-basic ${
-              getFieldState("email").invalid ? "inValid" : "valid"
+              getFieldState("email").invalid ? "invalid" : "valid"
             } `}
           >
-            Enter your email address
+            Enter valid email address
           </span>
         )}
-        {!errors.email && (
-          <p
-            className={`error-basic ${errors.email ? "invalid" : "valid"}`}
-            role="alert"
+        {emailTouched && !emailInvalid && (
+          <span
+            className={`error-basic ${
+              getFieldState("email").invalid ? "invalid" : "valid"
+            } `}
           >
-            Enter Email
-          </p>
-        )}
-
-        {errors.email?.type === "pattern" && (
-          <p
-            className={`error-basic ${errors.email ? "invalid" : "valid"}`}
-            role="alert"
-          >
-            Invalid email address
-          </p>
+            Email Address looks Good👍
+          </span>
         )}
       </div>
       <div className="input-container ">
@@ -95,8 +97,8 @@ export const InitialForm = () => {
           })}
         />
 
-        <div className="errors">
-          {errors.password?.type === "required" && (
+        <div className="errors-flex">
+          {/* {errors.password?.type === "required" && (
             <p className="error-basic" role="alert">
               Password is required
             </p>
@@ -108,10 +110,24 @@ export const InitialForm = () => {
           )}
           {errors.password?.type === "pattern" && (
             <p>{errors.password?.type === "pattern"}</p>
-          )}
-          <p className="error-basic" role="alert">
+          )} */}
+          <span
+            className={`error-basic ${
+              passError?.type == "minLength" && passTouched
+                ? "invalid"
+                : "valid"
+            }
+            }`}
+            role="alert"
+          >
+            min 8 characters
+          </span>
+          <span className="error-basic" role="alert">
+            A digit or a special character
+          </span>
+          {/* <span className="error-basic" role="alert">
             Password is not strong enough
-          </p>
+          </span> */}
         </div>
       </div>
       <div className="input-container checkbox-container">
@@ -121,11 +137,11 @@ export const InitialForm = () => {
           className="login-form-input-fields login-signup-checkbox"
           type="checkbox"
         />
-        {errors.password?.type === "required" && (
+        {/* {errors.password?.type === "required" && (
           <p className="error-basic" role="alert">
             Password is not strong enough
           </p>
-        )}
+        )} */}
         <label htmlFor="rememberme" className="login-form-input-labels">
           Remember me
         </label>
