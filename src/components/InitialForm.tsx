@@ -1,16 +1,27 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { get, useForm, type SubmitHandler } from "react-hook-form";
 
 import type { loginFormDataType } from "../types/loginForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const InitialForm = () => {
+  const [toolTipClass, setTooltipClass] = useState({
+    value: "black-tooltip",
+    allErrorsCleared: false,
+  });
   const {
     register,
     handleSubmit,
+    getFieldState,
     formState: { errors },
-  } = useForm<loginFormDataType>();
+  } = useForm<loginFormDataType>({
+    mode: "onTouched",
+  });
+  // const { invalid, isDirty, isTouched, error } = getFieldState(
+  //   "email",
+  //   formState
+  // );
   useEffect(() => {
-    console.log(errors, "errors");
+    console.log(errors, "errors", getFieldState("email").invalid);
   });
 
   const onSubmit: SubmitHandler<loginFormDataType> = (
@@ -28,15 +39,41 @@ export const InitialForm = () => {
           Email:
         </label>
         <input
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Invalid email address",
+            },
+          })}
           className="login-form-input-fields"
         />
-        <p
-          className={`error-basic ${errors.email ? "invalid" : "valid"}`}
-          role="alert"
-        >
-          Enter Email
-        </p>
+        {getFieldState("email").isTouched && getFieldState("email").invalid && (
+          <span
+            className={`error-basic ${
+              getFieldState("email").invalid ? "inValid" : "valid"
+            } `}
+          >
+            Enter your email address
+          </span>
+        )}
+        {!errors.email && (
+          <p
+            className={`error-basic ${errors.email ? "invalid" : "valid"}`}
+            role="alert"
+          >
+            Enter Email
+          </p>
+        )}
+
+        {errors.email?.type === "pattern" && (
+          <p
+            className={`error-basic ${errors.email ? "invalid" : "valid"}`}
+            role="alert"
+          >
+            Invalid email address
+          </p>
+        )}
       </div>
       <div className="input-container ">
         <label htmlFor="password" className="login-form-input-labels">
