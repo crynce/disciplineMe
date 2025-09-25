@@ -1,17 +1,17 @@
-import { get, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
 import type { loginFormDataType } from "../types/loginForm";
 import { useEffect, useState } from "react";
 
 export const InitialForm = () => {
-  const [toolTipClass, setTooltipClass] = useState({
-    value: "black-tooltip",
-    allErrorsCleared: false,
-  });
-  const { register, handleSubmit, getFieldState, formState } =
+  const [containsNum, setContainsNum] = useState(false);
+
+  const { register, handleSubmit, getFieldState, formState, watch } =
     useForm<loginFormDataType>({
       mode: "all",
     });
+  // const watchEmail = watch("email");
+  const watchPassword = watch("password");
   // const { invalid, isDirty, isTouched, error } = getFieldState(
   //   "email",
   //   formState
@@ -23,22 +23,35 @@ export const InitialForm = () => {
     isDirty: emailDirty,
   } = getFieldState("email", formState);
   const {
-    invalid: passInvalid,
-    isTouched: passTouched,
+    // invalid: passInvalid,
+    // isTouched: passTouched,
     error: passError,
+    // isDirty: passDirty,
   } = getFieldState("password", formState);
   useEffect(() => {
     console.log(emailError, "errors");
+  });
+  useEffect(() => {
+    console.log(passError, watchPassword, "passError");
   });
 
   const onSubmit: SubmitHandler<loginFormDataType> = (
     data: loginFormDataType
   ) => {
     console.log(data);
-    {
-      console.log(errors, "errors");
-    }
   };
+
+  console.log(watchPassword, "watchPassword");
+  useEffect(() => {
+    watchPassword?.split("").map((char) => {
+      if (parseInt(char)) {
+        if (!containsNum) {
+          setContainsNum(true);
+        }
+      }
+    });
+  }, [watchPassword]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
       <div className="input-container">
@@ -55,19 +68,21 @@ export const InitialForm = () => {
           })}
           className="login-form-input-fields"
         />
-        {!emailTouched && emailInvalid && (
-          <span className="error-basic">Enter your email address</span>
+
+        {!emailTouched && (
+          <span className="error-basic">Enter your Email Address</span>
         )}
+        {/* {!emailTouched && emailInvalid && (
+          <span className="error-basic">Enter your email address</span>
+        )} */}
         {emailTouched && emailInvalid && (
           <span
-            className={`error-basic ${
-              getFieldState("email").invalid ? "invalid" : "valid"
-            } `}
+            className={`error-basic ${emailInvalid ? "invalid" : "valid"} `}
           >
             Enter valid email address
           </span>
         )}
-        {emailTouched && !emailInvalid && (
+        {emailTouched && emailDirty && !emailInvalid && (
           <span
             className={`error-basic ${
               getFieldState("email").invalid ? "invalid" : "valid"
@@ -112,17 +127,16 @@ export const InitialForm = () => {
             <p>{errors.password?.type === "pattern"}</p>
           )} */}
           <span
-            className={`error-basic ${
-              passError?.type == "minLength" && passTouched
-                ? "invalid"
-                : "valid"
-            }
+            className={`error-basic ${watchPassword?.length >= 8 ? "valid" : ""}
             }`}
             role="alert"
           >
             min 8 characters
           </span>
-          <span className="error-basic" role="alert">
+          <span
+            className={`error-basic ${containsNum ? "valid" : ""}`}
+            role="alert"
+          >
             A digit or a special character
           </span>
           {/* <span className="error-basic" role="alert">
