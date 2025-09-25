@@ -152,11 +152,18 @@
 }
 
 .error-basic {
-  color: red;
+  color: black;
   font-size: small;
   margin-top: 10px;
   background-color: rgba(200, 200, 200, 0.414);
   width: fit-content;
   border-radius: 5px;
   align-self: flex-start;
+}
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
 }

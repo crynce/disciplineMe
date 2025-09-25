@@ -1,6 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import type { loginFormDataType } from "../types/loginForm";
+import { useEffect } from "react";
 
 export const InitialForm = () => {
   const {
@@ -8,11 +9,17 @@ export const InitialForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<loginFormDataType>();
+  useEffect(() => {
+    console.log(errors, "errors");
+  });
 
   const onSubmit: SubmitHandler<loginFormDataType> = (
     data: loginFormDataType
   ) => {
     console.log(data);
+    {
+      console.log(errors, "errors");
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
@@ -24,11 +31,12 @@ export const InitialForm = () => {
           {...register("email", { required: true })}
           className="login-form-input-fields"
         />
-        {errors.email?.type === "required" && (
-          <p className="error-basic" role="alert">
-            Email is required
-          </p>
-        )}
+        <p
+          className={`error-basic ${errors.email ? "invalid" : "valid"}`}
+          role="alert"
+        >
+          Enter Email
+        </p>
       </div>
       <div className="input-container ">
         <label htmlFor="password" className="login-form-input-labels">
@@ -36,13 +44,38 @@ export const InitialForm = () => {
         </label>
         <input
           className="login-form-input-fields"
-          {...register("password", { required: true })}
+          type="password"
+          {...register("password", {
+            required: true,
+            minLength: {
+              value: 8,
+              message: "Atleast 8 characters",
+            },
+            pattern: {
+              value: /[\d\W]/,
+              message: "A digit or a special character",
+            },
+          })}
         />
-        {errors.password?.type === "required" && (
+
+        <div className="errors">
+          {errors.password?.type === "required" && (
+            <p className="error-basic" role="alert">
+              Password is required
+            </p>
+          )}
+          {errors.password?.type === "minLength" && (
+            <p className="error-basic" role="alert">
+              {errors.password.message}
+            </p>
+          )}
+          {errors.password?.type === "pattern" && (
+            <p>{errors.password?.type === "pattern"}</p>
+          )}
           <p className="error-basic" role="alert">
             Password is not strong enough
           </p>
-        )}
+        </div>
       </div>
       <div className="input-container checkbox-container">
         <input
