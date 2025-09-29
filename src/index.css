@@ -1,4 +1,6 @@
 /* Modern CSS Reset */
+@import "tailwindcss";
+
 *,
 *::before,
 *::after {
@@ -40,7 +42,6 @@ select {
 }
 
 body {
-  margin-top: 10px;
   min-height: 700px;
   min-width: max-content;
 }
@@ -49,4 +50,64 @@ body {
   /* width: 100vw; */
   font-family: "Notoserifottoman";
   color: var(--font-color-black);
+}
+:root {
+  --font-color-black: #131313;
+  --font-color-white: #f5f5f5;
+  --font-color-gray: #4a4a4a;
+  --bg-color-white: #ffffff;
+  --bg-color-black: #0a0a0a;
+  --bg-color-gray: #f5f5f5;
+
+  --font-color-primary: #1a73e8;
+  --font-color-secondary: #d93025;
+  --font-color-success: #188038;
+  --font-color-warning: #e37400;
+}
+
+@layer components {
+  .calendar-container {
+    @apply grid bg-gray-900 h-auto w-96 rounded-xl shadow-md gap-1 p-4;
+    grid-template-rows: 20% 80%;
+  }
+}
+
+.calendar-first-row {
+  @apply grid grid-cols-2 gap-1 h-6;
+  grid-template-columns: 80% 20%;
+  padding-top: 10px;
+}
+calendar-second-row {
+  @apply grid h-auto;
+}
+.calendar-dates-grid {
+  @apply text-center font-extrabold text-xl;
+  place-self: center;
+}
+.grid-week-container {
+  @apply grid grid-rows-2 gap-2 bg-gray-900 rounded-lg shadow-md text-white;
+  grid-template-columns: 80% 20%;
+}
+.grid-weekdays-heading {
+  @apply grid grid-cols-7 gap-2 bg-gray-900 rounded-lg shadow-md text-white;
+}
+.grid-weekdays-dates {
+  @apply grid grid-cols-7 gap-2 text-white border-0;
+}
+@layer utilities {
+  .bg-primary {
+    background-color: var(--font-color-primary);
+  }
+  .bg-secondary {
+    background-color: var(--font-color-secondary);
+  }
+  .bg-success {
+    background-color: var(--font-color-success);
+  }
+  .bg-warning {
+    background-color: var(--font-color-warning);
+  }
+  .center-text-grid {
+    vertical-align: middle;
+  }
 }

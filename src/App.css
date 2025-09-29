@@ -173,3 +173,12 @@
   display: flex;
   gap: 1em;
 }
+
+/* form-step-2 css */
+
+.form-step-2-container {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border: 2px solid black;
+}
