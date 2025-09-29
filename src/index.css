@@ -94,6 +94,11 @@ calendar-second-row {
 .grid-weekdays-dates {
   @apply grid grid-cols-7 gap-2 text-white border-0;
 }
+/* nav container */
+.nav-container {
+  @apply flex justify-between items-center p-4 bg-gray-800 text-amber-50;
+}
+
 @layer utilities {
   .bg-primary {
     background-color: var(--font-color-primary);
