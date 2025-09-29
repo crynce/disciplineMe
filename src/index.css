@@ -96,7 +96,26 @@ calendar-second-row {
 }
 /* nav container */
 .nav-container {
-  @apply flex justify-between items-center p-4 bg-gray-800 text-amber-50;
+  @apply grid grid-cols-10 p-4;
+}
+.nav-first {
+  @apply flex items-center justify-evenly;
+  grid-column: span 2 / span 2;
+}
+.general-padding-2 {
+  @apply p-2;
+}
+.nav-second {
+  @apply flex items-center;
+  grid-column: span 3 / span 3;
+}
+.nav-third {
+  @apply flex items-center gap-4 justify-end;
+  grid-column: span 5 / span 5;
+  align-items: end;
+}
+.general-click {
+  @apply hover:bg-gray-700 cursor-pointer transition-colors rounded-lg active:bg-gray-600;
 }
 
 @layer utilities {

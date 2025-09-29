@@ -1,7 +1,7 @@
 @import url("./assets//variables.css");
 
 .app-container {
-  width: 100vw;
+  /* width: 100vw; */
   height: clamp(700px, 100vh, 900px);
   min-width: max-content;
   background: hsla(276, 91%, 79%, 1);
