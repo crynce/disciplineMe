@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { goNextMonth, goPrevMonth, goToday } from "../store/calendar-slice";
 import ThemeToggle from "./ThemeToggle";
@@ -22,60 +21,8 @@ const months = [
 type RootState = { calendar: { year: number; month: number } };
 
 export default function DashboardNavContainer() {
-  const today = new Date();
-  const dateObj = {
-    today,
-    todaysDate: today.getDate(),
-    thisMonthFirstDay: new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      1
-    ).getDay(),
-    thisMonth: today.getMonth(),
-    thisYear: today.getFullYear(),
-  };
   //month state
-  const [dateState, setDateState] = useState(dateObj);
-  function handleLeftArr() {
-    if (dateState.thisMonth === 0) {
-      setDateState((prev) => ({
-        ...prev,
-        thisMonth: 11,
-        thisYear: prev.thisYear - 1,
-        thisMonthFirstDay: new Date(prev.thisYear - 1, 11, 1).getDay(),
-      }));
-    } else {
-      setDateState((prev) => ({
-        ...prev,
-        thisMonth: prev.thisMonth - 1,
-        thisMonthFirstDay: new Date(
-          prev.thisYear,
-          prev.thisMonth - 1,
-          1
-        ).getDay(),
-      }));
-    }
-  }
-  function handleRightArr() {
-    if (dateState.thisMonth === 11) {
-      setDateState((prev) => ({
-        ...prev,
-        thisMonth: 0,
-        thisYear: prev.thisYear + 1,
-        thisMonthFirstDay: new Date(prev.thisYear + 1, 0, 1).getDay(),
-      }));
-    } else {
-      setDateState((prev) => ({
-        ...prev,
-        thisMonth: prev.thisMonth + 1,
-        thisMonthFirstDay: new Date(
-          prev.thisYear,
-          prev.thisMonth + 1,
-          1
-        ).getDay(),
-      }));
-    }
-  }
+
   const dispatch = useDispatch();
   const cal = useSelector((s: RootState) => s.calendar);
   return (
