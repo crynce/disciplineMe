@@ -1,15 +1,7 @@
-import leftArrow from "../assets/left-arrow.svg";
-import rightArrow from "../assets/right-arrow.svg";
 import dropDownArrow from "../assets/dropdown-arrow.svg";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addEvent,
-  openModalForDate,
-  selectDate,
-} from "../store/calendar-slice";
+import { openModalForDate, selectDate } from "../store/calendar-slice";
 import type { TaskItem } from "../store/tasks-slice";
-import EventModal from "./EventModal";
 
 const months = [
   "January",
@@ -46,28 +38,10 @@ export default function Calendar() {
   const daysInMonth = new Date(cal.year, cal.month + 1, 0).getDate();
   const prevMonthDays = new Date(cal.year, cal.month, 0).getDate();
 
-  //handling date click
-  function handleDateCick(e: React.MouseEvent<HTMLDivElement>) {
-    const selectedDay = Number((e.target as HTMLDivElement).innerText);
-    if (!selectedDay) return;
-    const dateMs = new Date(cal.year, cal.month, selectedDay).getTime();
-    dispatch(selectDate(dateMs));
-  }
   function handleAddTaskFromDate() {
     console.log("double Clicked");
     dispatch(openModalForDate(new Date().getTime()));
   }
-
-  const COL_START = [
-    "", // index 0 unused
-    "col-start-1",
-    "col-start-2",
-    "col-start-3",
-    "col-start-4",
-    "col-start-5",
-    "col-start-6",
-    "col-start-7",
-  ];
 
   return (
     <div className="calendar-container">

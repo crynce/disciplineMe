@@ -5,7 +5,7 @@ import { addEvent, closeModal } from "../store/calendar-slice";
 type RootState = {
   calendar: {
     isModalOpen: boolean;
-    modalDate?: number;
+    modalDate: number;
   };
 };
 

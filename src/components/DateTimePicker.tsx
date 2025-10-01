@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../store/tasks-slice";
 type RootState = { calendar: { selectedDate?: number } };
 
@@ -8,6 +8,7 @@ export default function DateTimePicker() {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskTime, setTaskTime] = useState("");
   const [remind, setRemind] = useState(10);
+  const dispatch = useDispatch();
   return (
     <div className="space-y-2">
       <input

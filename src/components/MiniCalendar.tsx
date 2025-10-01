@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { goNextMonth, goPrevMonth, selectDate } from "../store/calendar-slice";
 
@@ -69,8 +68,7 @@ export default function MiniCalendar() {
   for (let i = 0; i < startDay; i++) {
     cells.push({
       key: `b-${i}`,
-      label: "",
-      // label: String(lastDayOfPreviousMonth - firstDay + i + 1),
+      label: String(lastDayOfPreviousMonth - firstDay + i + 1),
       isToday: false,
       isOutside: true,
     });
