@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import MiniCalendar from "./MiniCalendar";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,9 @@ export default function CalendarLeftSidebar() {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskTime, setTaskTime] = useState("");
   const [remind, setRemind] = useState(10);
-  console.log(setRemind(1));
+  useEffect(() => {
+    setRemind(10);
+  }, []);
   const dispatch = useDispatch();
   const selectedDate = useSelector((s: RootState) => s.calendar.selectedDate);
 

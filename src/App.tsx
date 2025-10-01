@@ -6,6 +6,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import CalendarDashboard from "./components/CalendarDashboard";
 import LoginForm from "./components/LoginForm";
+import DateTimePicker from "./components/DateTimePicker";
 
 function App() {
   // const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/dashboard" element={<CalendarDashboard />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/datepicker" element={<DateTimePicker />} />
       </Routes>
     </BrowserRouter>
   );
