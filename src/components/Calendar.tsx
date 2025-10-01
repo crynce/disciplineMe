@@ -42,7 +42,6 @@ export default function Calendar() {
   const firstDay = firstOfMonth.getDay();
   const daysInMonth = new Date(cal.year, cal.month + 1, 0).getDate();
   const prevMonthDays = new Date(cal.year, cal.month, 0).getDate();
-  console.log(prevMonthDays, "prevMonthDays");
 
   //handling date click
   function handleDateCick(e: React.MouseEvent<HTMLDivElement>) {
