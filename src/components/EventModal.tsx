@@ -13,6 +13,7 @@ export default function EventModal() {
   const dispatch = useDispatch();
   const { isModalOpen, modalDate } = useSelector((s: RootState) => s.calendar);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   if (!isModalOpen || !modalDate) return null;
 
@@ -40,6 +41,12 @@ export default function EventModal() {
             placeholder="Event title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="Add Description..."
+            className=" modal-input-textarea w-full h-32 p-3 custom-scroll"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <div className="modal-actions">
             <button

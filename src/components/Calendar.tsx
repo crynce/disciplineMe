@@ -9,6 +9,7 @@ import {
   selectDate,
 } from "../store/calendar-slice";
 import type { TaskItem } from "../store/tasks-slice";
+import EventModal from "./EventModal";
 
 const months = [
   "January",
@@ -30,6 +31,8 @@ type RootState = {
     month: number;
     selectedDate?: number;
     eventsByDay: Record<string, { id: string; title: string; start: number }[]>;
+    isModalOpen: boolean;
+    modalDate?: number;
   };
   tasks: { items: TaskItem[] };
 };
@@ -49,6 +52,10 @@ export default function Calendar() {
     if (!selectedDay) return;
     const dateMs = new Date(cal.year, cal.month, selectedDay).getTime();
     dispatch(selectDate(dateMs));
+  }
+  function handleAddTaskFromDate() {
+    console.log("double Clicked");
+    dispatch(openModalForDate(new Date().getTime()));
   }
 
   const COL_START = [
@@ -134,9 +141,10 @@ export default function Calendar() {
             const isSelected = cal.selectedDate === cell.dateMs;
             return (
               <div
-                key={cell.dateMs}
+                key={`${cell.dateMs}-main`}
                 className={`day-cell ${cell.outside ? "outside" : ""}`}
                 onClick={() => dispatch(selectDate(cell.dateMs))}
+                onDoubleClick={handleAddTaskFromDate}
               >
                 <span
                   className={`day-number ${isToday ? "today" : ""} ${

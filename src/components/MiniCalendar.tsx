@@ -17,7 +17,15 @@ const monthNames = [
   "December",
 ];
 
-const weekdayShort = ["S", "M", "T", "W", "T", "F", "S"];
+const weekdaysShort = [
+  { label: "S", weekday: "Sunday" },
+  { label: "M", weekday: "Monday" },
+  { label: "T", weekday: "Tuesday" },
+  { label: "W", weekday: "Wednesday" },
+  { label: "T", weekday: "Thursday" },
+  { label: "F", weekday: "Friday" },
+  { label: "S", weekday: "Saturday" },
+];
 
 type RootState = {
   calendar: {
@@ -61,7 +69,8 @@ export default function MiniCalendar() {
   for (let i = 0; i < startDay; i++) {
     cells.push({
       key: `b-${i}`,
-      label: String(lastDayOfPreviousMonth - firstDay + i + 1),
+      label: "",
+      // label: String(lastDayOfPreviousMonth - firstDay + i + 1),
       isToday: false,
       isOutside: true,
     });
@@ -82,6 +91,7 @@ export default function MiniCalendar() {
     });
   }
 
+  console.log(todayKey, console.log(cells));
   return (
     <div className="mini-cal">
       <div className="mini-cal-header">
@@ -100,9 +110,9 @@ export default function MiniCalendar() {
         </button>
       </div>
       <div className="mini-cal-grid">
-        {weekdayShort.map((d) => (
-          <div key={d} className="dow">
-            {d}
+        {weekdaysShort.map((d) => (
+          <div key={d.weekday} className="dow">
+            {d.label}
           </div>
         ))}
         {cells.map((c) => {
@@ -113,7 +123,7 @@ export default function MiniCalendar() {
               current.selectedDate;
           return (
             <div
-              key={c.key}
+              key={`${c.key}-mini`}
               onClick={() => {
                 if (!c.label) return;
                 const d = new Date(
@@ -123,10 +133,13 @@ export default function MiniCalendar() {
                 ).getTime();
                 dispatch(selectDate(d));
               }}
-              className={`cell ${c.isOutside ? "outside" : ""} ${
+              className={`relative cell ${c.isOutside ? "outside" : ""} ${
                 c.isToday ? "today" : ""
               } ${isSelected ? "selected" : ""}`}
             >
+              {c.isToday && (
+                <span className="w-1 h-1 bg-emerald-600 rounded-full z-10 absolute top-1 left-1" />
+              )}
               {c.label}
             </div>
           );
