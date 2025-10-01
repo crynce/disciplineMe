@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { goNextMonth, goPrevMonth, goToday } from "../store/calendar-slice";
+import ThemeToggle from "./ThemeToggle";
 import leftArrow from "../assets/left-arrow.svg";
 import rightArrow from "../assets/right-arrow.svg";
 import burgerSimple from "../assets/burger-simple.svg";
@@ -16,6 +19,8 @@ const months = [
   "November",
   "December",
 ];
+type RootState = { calendar: { year: number; month: number } };
+
 export default function DashboardNavContainer() {
   const today = new Date();
   const dateObj = {
@@ -71,57 +76,59 @@ export default function DashboardNavContainer() {
       }));
     }
   }
+  const dispatch = useDispatch();
+  const cal = useSelector((s: RootState) => s.calendar);
   return (
     <nav className="nav-container">
-      <div className="nav-first">
+      <div className="nav-first min-w-0">
         <div className="burger-icon hover:bg-gray-700 cursor-pointer transition-colors rounded-lg center-text-grid active:bg-gray-600 transition-background-color p-2">
           <img src={burgerSimple} alt="burger" height="40px" width="40px" />
         </div>
-        <div className="general-padding-2 general-click p-2 box-border">
-          DisciplineMe
-        </div>
+        <div className="brand general-click p-2 box-border">DisciplineMe</div>
       </div>
-      <div className="nav-second">
-        <div className="nav-second-first general-click general-padding-2">
+      <div className="nav-second min-w-0">
+        <button className="today-btn" onClick={() => dispatch(goToday())}>
           Today
-        </div>
-        <div className="nav-second-second">
-          <div className="nav-second-second-calendar-nav">
-            <div className="flex items-center gap-3">
-              <div className="grid grid-cols-2">
-                <button
-                  onClick={handleLeftArr}
-                  className="general-click general-padding-2"
-                >
-                  <img
-                    src={leftArrow}
-                    alt=""
-                    height="20px"
-                    width="20px"
-                    className="invert"
-                  />
-                </button>
-                <button
-                  onClick={handleRightArr}
-                  className="general-click general-padding-2"
-                >
-                  <img
-                    src={rightArrow}
-                    alt=""
-                    height="20px"
-                    width="20px"
-                    className="invert"
-                  />
-                </button>
-              </div>
-              <p className="text-xl font-bold mb-4 text-white general-click general-padding-2">
-                {months[dateState?.thisMonth]} {dateState?.thisYear}
-              </p>
-            </div>
-          </div>
+        </button>
+        <div className="month-nav">
+          <button
+            onClick={() => dispatch(goPrevMonth())}
+            className="icon-btn"
+            aria-label="Previous month"
+          >
+            <img
+              src={leftArrow}
+              alt="prev"
+              height="18px"
+              width="18px"
+              className="invert"
+            />
+          </button>
+          <span className="month-title">
+            {months[cal.month]} {cal.year}
+          </span>
+          <button
+            onClick={() => dispatch(goNextMonth())}
+            className="icon-btn"
+            aria-label="Next month"
+          >
+            <img
+              src={rightArrow}
+              alt="next"
+              height="18px"
+              width="18px"
+              className="invert"
+            />
+          </button>
         </div>
       </div>
-      <div className="nav-third">profile</div>
+      <div className="nav-third min-w-0">
+        <div className="search-wrap">
+          <input className="search-input" placeholder="Search" />
+        </div>
+        <ThemeToggle />
+        <div className="profile-avatar">DM</div>
+      </div>
     </nav>
   );
 }

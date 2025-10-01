@@ -2,9 +2,11 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 
 import type { loginFormDataType } from "../types/loginForm";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const InitialForm = () => {
   const [containsNum, setContainsNum] = useState(false);
+  const navigate = useNavigate();
 
   const { register, handleSubmit, getFieldState, formState, watch } =
     useForm<loginFormDataType>({
@@ -35,10 +37,13 @@ export const InitialForm = () => {
     console.log(passError, watchPassword, "passError");
   });
 
-  const onSubmit: SubmitHandler<loginFormDataType> = (
+  const onSubmit: SubmitHandler<loginFormDataType> = async (
     data: loginFormDataType
   ) => {
     console.log(data);
+    // Simulate auth success then redirect
+    await new Promise((r) => setTimeout(r, 200));
+    navigate("/dashboard");
   };
 
   console.log(watchPassword, "watchPassword");
@@ -161,7 +166,11 @@ export const InitialForm = () => {
         </label>
       </div>
 
-      <button className="general-button" type="submit">
+      <button
+        className="general-button"
+        type="button"
+        onClick={() => navigate("/dashboard")}
+      >
         Login
       </button>
     </form>
