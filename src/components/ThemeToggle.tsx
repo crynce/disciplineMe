@@ -9,8 +9,8 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     const html = document.documentElement;
-    html.classList.remove("theme-light", "theme-dark");
-    html.classList.add(theme === "light" ? "theme-light" : "theme-dark");
+    html.classList.remove("light", "dark");
+    html.classList.add(theme === "light" ? "light" : "dark");
     localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 

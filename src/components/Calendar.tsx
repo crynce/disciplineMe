@@ -47,7 +47,7 @@ export default function Calendar() {
     <div className="calendar-container">
       <div className="calendar-first-row">
         <div className="flex items-center gap-3">
-          <p className="text-lg mb-4 text-white">
+          <p className="text-lg mb-4 ">
             {months[cal.month]} {cal.year}
           </p>
           <img

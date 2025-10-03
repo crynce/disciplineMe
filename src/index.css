@@ -1,6 +1,6 @@
 /* Modern CSS Reset */
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 *,
 *::before,
 *::after {
@@ -46,6 +46,7 @@ body {
   min-width: 0;
   background: var(--page-bg, linear-gradient(225deg, #0f172a 0%, #111827 60%));
   color: var(--text-primary, #f5f5f5);
+  border: 1px solid --border;
 }
 #root {
   min-height: 700px;
@@ -72,13 +73,19 @@ body {
 /* custom scrollbar */
 
 /* Theme support */
-html.theme-dark {
+html.dark {
   --page-bg: linear-gradient(225deg, #0f172a 0%, #111827 60%);
   --text-primary: #f5f5f5;
+  --border-primary: #dbdfe6;
+  --mini-cal-bg: rgba(255, 255, 255, 0.04);
+  --mini-cal-bg-hover: rgba(255, 255, 255, 0.08);
 }
-html.theme-light {
-  --page-bg: #f3f4f6;
+html.light {
+  --page-bg: #e5e5e5e7;
   --text-primary: #111827;
+  --border-primary: rgba(255, 255, 255, 0.04);
+  --mini-cal-bg: rgba(0, 0, 0, 0.01);
+  --mini-cal-bg-hover: rgba(0, 0, 0, 1);
 }
 
 @layer components {
@@ -120,13 +127,14 @@ html.theme-light {
   padding: 6px;
   display: flex;
   flex-direction: column;
+  color: var(--text-primary);
 }
 .day-cell:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 .day-number {
   font-size: 12px;
-  color: #e5e7eb;
+  /* color: #e5e7eb; */
   width: 24px;
   height: 24px;
   display: inline-flex;
@@ -136,7 +144,7 @@ html.theme-light {
 }
 .day-number.today {
   background: rgba(59, 130, 246, 0.85);
-  color: white;
+  /* color: white; */
 }
 .day-number.selected {
   outline: 2px solid rgba(59, 130, 246, 0.9);
@@ -166,8 +174,8 @@ html.theme-light {
 }
 /* calendar dashboard */
 .calendar-dashboard-container {
-  @apply text-amber-50 w-auto;
-  background-color: #000000d9;
+  @apply w-auto;
+  /* background-color: #000000d9; */
   min-height: 100vh;
 }
 /* nav container */
@@ -179,7 +187,7 @@ html.theme-light {
   top: 0;
   z-index: 40;
   backdrop-filter: blur(6px);
-  background: rgba(0, 0, 0, 0.55);
+  /* background: rgba(0, 0, 0, 0.55); */
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .nav-first {
@@ -187,7 +195,7 @@ html.theme-light {
   grid-column: span 2 / span 2;
 }
 .nav-first .brand {
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   font-weight: 700;
   letter-spacing: 0.3px;
 }
@@ -200,7 +208,7 @@ html.theme-light {
 }
 .today-btn {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   border: none;
   padding: 8px 12px;
   border-radius: 8px;
@@ -229,7 +237,7 @@ html.theme-light {
   cursor: pointer;
 }
 .month-title {
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   font-weight: 700;
 }
 .nav-third {
@@ -244,7 +252,7 @@ html.theme-light {
   width: clamp(140px, 22vw, 100%);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   padding: 8px 10px;
   border-radius: 10px;
   outline: none;
@@ -257,7 +265,7 @@ html.theme-light {
   height: 36px;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.9);
-  color: #111827;
+  /* color: #111827; */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -284,10 +292,11 @@ html.theme-light {
 
 /* Mini calendar styles */
 .mini-cal {
-  color: var(--font-color-white);
-  background: rgba(255, 255, 255, 0.04);
+  /* color: var(--font-color-white); */
+  background: var(--mini-cal-bg);
   border-radius: 8px;
   padding: 12px;
+  color: var(--text-primary);
 }
 .mini-cal-header {
   display: flex;
@@ -300,14 +309,14 @@ html.theme-light {
 }
 .mini-cal-header .nav-btn {
   background: transparent;
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   border: none;
   width: 28px;
   height: 28px;
   border-radius: 6px;
 }
 .mini-cal-header .nav-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--mini-cal-bg-hover);
   cursor: pointer;
 }
 .mini-cal-grid {
@@ -318,7 +327,7 @@ html.theme-light {
 }
 .mini-cal-grid .dow {
   text-align: center;
-  color: #bdbdbd;
+  /* color: #bdbdbd; */
   padding: 4px 0;
 }
 .mini-cal-grid .cell {
@@ -371,7 +380,7 @@ html.theme-light {
 .modal-card {
   width: clamp(280px, 40vw, 520px);
   background: #111827;
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   padding: 16px;
@@ -384,7 +393,7 @@ html.theme-light {
   width: 100%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   padding: 10px 12px;
   border-radius: 10px;
   outline: none;
@@ -394,7 +403,7 @@ html.theme-light {
   width: 100%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--font-color-white);
+  /* color: var(--font-color-white); */
   padding: 10px 12px;
   border-radius: 10px;
   outline: none;
@@ -420,11 +429,11 @@ html.theme-light {
 }
 .btn.ghost {
   background: transparent;
-  color: #e5e7eb;
+  /* color: #e5e7eb; */
 }
 .btn.primary {
   background: rgba(59, 130, 246, 0.85);
-  color: white;
+  /* color: white; */
 }
 
 /* custom-scroll class */
@@ -452,4 +461,9 @@ html.theme-light {
 .custom-scroll {
   scrollbar-width: thin; /* makes scrollbar thinner */
   scrollbar-color: #1c1c1d #1d1d1d5d; /* thumb color | track color */
+}
+
+/* date time picker */
+.time-picker-container {
+  @apply grid grid-cols-2 text-amber-50 w-40 bg-gray-950 h-10 absolute top-20 left-50;
 }

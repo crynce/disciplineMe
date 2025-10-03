@@ -81,7 +81,7 @@ export default function CalendarLeftSidebar() {
           </button>
         </div>
       </div>
-      <DateTimePicker />
+      {/* <DateTimePicker /> */}
       <div className="mt-6">
         <h4 className="text-sm uppercase tracking-wide text-gray-300 mb-2">
           My calendars

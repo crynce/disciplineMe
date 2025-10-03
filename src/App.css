@@ -1,5 +1,6 @@
 @import url("./assets//variables.css");
 
+@custom-variant dark (&:where(.dark, .dark *));
 /* removed container gradient from global wrapper */
 
 /* Auth page */
